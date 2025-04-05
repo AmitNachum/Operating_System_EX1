@@ -1,0 +1,74 @@
+        -:    0:Source:Dijkstra.c
+        -:    1:#include "SPT.h"
+        -:    2:
+        -:    3:
+        1:    4:int main(){
+        -:    5:
+        1:    6:printf("===== Dijkstra Algorithm =====\n\n");
+        -:    7:    int graph[V][V];
+        -:    8:
+        4:    9:    for (int v = 0; v < V; v++)
+        -:   10:    {
+        -:   11:        int weight;
+       12:   12:        for (int u = 0; u < V; u++)
+        -:   13:        {
+    #####:   14:            while (true){
+        -:   15:            int option;
+        9:   16:            printf("1)Please enter a positive Integer\n2)Set edge to Infinity\n(1 or 2)\n\n");
+        -:   17:
+        9:   18:           if (scanf("%d",&option) != 1 || option != 1 && option != 2)
+    #####:   19:           {
+    #####:   20:            printf("Invalid input,please try again.\n\n");
+        -:   21:            int ch;
+    #####:   22:            while (ch = getchar() != '\n' && ch != EOF);
+    #####:   23:            continue;
+        -:   24:           }
+        -:   25:
+        -:   26:
+        9:   27:            if (option == 2)
+        -:   28:            {
+        2:   29:                printf("Edge (%d,%d) = INFINITY.\n\n",v,u);
+        2:   30:                weight = INT_MAX;
+        2:   31:                break;
+        -:   32:            }
+        -:   33:
+        -:   34:            
+        7:   35:            if (option == 1)
+        -:   36:            {
+        7:   37:            printf("Enter the desired Weight:\n\n");
+        7:   38:            scanf("%d",&weight);
+        7:   39:            if (weight < 0)
+    #####:   40:            {
+    #####:   41:                printf("Weight must be a non negative Integer\n\n");
+        -:   42:                int ch;
+    #####:   43:                while (ch = getchar() != '\n' && ch != EOF);
+    #####:   44:                continue;
+        -:   45:            }
+        7:   46:            else break;
+        -:   47:        }
+        -:   48:            
+        -:   49:        }
+        9:   50:        graph[u][v] = weight;
+        -:   51:            
+        -:   52:        }
+        -:   53:
+        -:   54:        
+        -:   55:    }
+        -:   56:
+        1:   57:int SorF = -1;
+        1:   58:int *status = &SorF;
+        1:   59:dijkstra(graph,0,status);
+        -:   60:
+        1:   61:if (*status == -1)
+        -:   62:{
+    #####:   63:    printf("Error,Has occured.\nExiting...\n\n");
+        -:   64:}
+        -:   65:else
+        1:   66:printf("SUCCESS!!\n");
+        -:   67:
+        -:   68:
+        -:   69:
+        -:   70:
+        1:   71:    return 0;
+        -:   72:    
+        -:   73:}
