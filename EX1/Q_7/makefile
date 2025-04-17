@@ -11,4 +11,4 @@ findPhone: findPhone.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f $(TARGETS)
+	rm -f $(TARGETS) phonebook.txt
