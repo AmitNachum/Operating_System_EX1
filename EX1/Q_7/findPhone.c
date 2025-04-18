@@ -5,6 +5,7 @@
 
 // Run a command using execvp in a child process with redirection
 void run_pipe(char *cmd[], int input_fd, int output_fd) {
+    
     pid_t pid = fork();
     if (pid == 0) {
         // Redirect input if needed

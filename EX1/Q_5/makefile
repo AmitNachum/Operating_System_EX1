@@ -13,7 +13,7 @@ $(TARGET): $(OBJ)
 
 
 gprof: $(TARGET)
-	./$(TARGET) 42 10000
+	./$(TARGET) 42 1000
 	gprof $(TARGET) gmon.out > report.txt
 	cat report.txt
 

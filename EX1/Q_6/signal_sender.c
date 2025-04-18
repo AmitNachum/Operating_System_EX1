@@ -4,6 +4,7 @@
 #include <signal.h>
 
 void send_bit(pid_t pid, int bit) {
+    
     int sig = bit ? SIGUSR2 : SIGUSR1;
     if (kill(pid, sig) == -1) {
         perror("Error sending signal");

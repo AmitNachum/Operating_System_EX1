@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -11,35 +10,60 @@ int main(int argc, char *argv[]) {
 
     // Calculate total length of all arguments combined
     size_t total_len = 0;
-    for (int i = 1; i < argc; i++) {
-        total_len += strlen(argv[i]) + 1; // +1 for space or null terminator
+    for (int i = 1; i < argc; i++)
+    {
+        char *iter = argv[i];
+        size_t ith_size = 0;
+        while (*iter != '\0')
+        {
+            ith_size++;
+            iter++;
+        }
+        total_len += ith_size;
     }
+    
 
     // Allocate memory for the combined string
-    char *entry = malloc(total_len);
+    char *entry = malloc(total_len + 1);
     if (!entry) {
         perror("malloc");
         return 1;
     }
 
-    entry[0] = '\0'; // Initialize the string
+    
+    char *iter = entry;
 
     // Concatenate all arguments into a single string
-    for (int i = 1; i < argc; i++) {
-        strcat(entry, argv[i]);
-        // Add space between arguments unless it's the last one or ends with a comma
-        if (i < argc - 1 && argv[i][strlen(argv[i]) - 1] != ',') {
-            strcat(entry, " ");
+     for(int i = 1 ; i < argc ; i++){
+        char *ith_iter = argv[i];
+
+        while(*ith_iter != '\0'){
+            *iter = *ith_iter;
+             iter++;
+             ith_iter++;
         }
-    }
+        
+     }
+     entry[total_len] = '\0';
 
     // Look for a comma to separate name from phone number
-    char *comma = strchr(entry, ',');
-    if (!comma) {
-        fprintf(stderr, "Invalid format. Expected: \"Full Name,Phone-Number\"\n");
-        free(entry);
-        return 1;
+    char *comma = entry;
+    int indicator = 0;
+
+    while(*comma != '\0'){
+        if (*comma ==','){
+            indicator = 1;
+            break;
+        }
+        comma++;
     }
+
+    if (indicator == 0){
+    fprintf(stderr, "Invalid format. Expected: \"Full Name,Phone-Number\"\n");
+    free(entry);
+    return 1;
+    }
+    
 
     // Open the file for appending
     FILE *file = fopen("phonebook.txt", "a");
